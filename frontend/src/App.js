@@ -15,6 +15,7 @@ export default function App() {
 
   return (
     <div>
+      <h1>Resume Analyzer</h1>
       <input type="file" accept=".pdf,.docx" onChange={(e) => setResume(e.target.files[0])} />
       <textarea placeholder="Paste job description" onChange={(e) => setJobDesc(e.target.value)}></textarea>
       <button onClick={handleAnalyze}>Analyze</button>
