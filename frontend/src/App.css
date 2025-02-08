@@ -1,0 +1,104 @@
+/* Modern Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 🌄 Background */
+body {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 📦 Card Layout */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+}
+
+/* 📝 File Upload */
+.file-upload {
+  display: block;
+  background: #6e8efb;
+  color: #fff;
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.file-upload:hover {
+  background: #5a7de3;
+}
+
+.file-upload input {
+  display: none;
+}
+
+/* 🏆 Job Description Input */
+.job-desc {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* 🚀 Analyze Button */
+.analyze-btn {
+  background: #6e8efb;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background 0.3s ease;
+}
+
+.analyze-btn:hover {
+  background: #5a7de3;
+}
+
+/* 🎯 Result Display */
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.score {
+  font-weight: bold;
+  color: #6e8efb;
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 600px) {
+  .card {
+    width: 95%;
+  }
+}
