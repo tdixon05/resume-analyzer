@@ -6,12 +6,16 @@ export default function App() {
   const [resume, setResume] = useState(null);
   const [jobDesc, setJobDesc] = useState("");
   const [score, setScore] = useState("");
+  const [strengths, setStrengths] = useState("");
+  const [weaknesses, setWeaknesses] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleAnalyze = async () => {
     setError(null);
     setScore("");
+    setStrengths("");
+    setWeaknesses("");
     setLoading(true);
 
     if (!resume) {
@@ -27,6 +31,8 @@ export default function App() {
       setError(result.error);
     } else {
       setScore(result.score);
+      setStrengths(result.strengths);
+      setWeaknesses(result.weaknesses);
     }
   };
 
@@ -51,11 +57,15 @@ export default function App() {
           {loading ? "Analyzing..." : "Analyze Resume"}
         </button>
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className="error">⚠️ {error}</p>}
 
         {score && (
           <div className="result">
             <h2>Score: <span className="score">{score}</span></h2>
+            <h3>Strengths:</h3>
+            <p>{strengths}</p>
+            <h3>Areas for Improvement:</h3>
+            <p>{weaknesses}</p>
           </div>
         )}
       </div>

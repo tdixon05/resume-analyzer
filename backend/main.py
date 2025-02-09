@@ -6,16 +6,19 @@ import openai
 import os
 from dotenv import load_dotenv
 
-# Load API keys securely
+# Load environment variables
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not OPENAI_API_KEY:
+    raise ValueError("OPENAI_API_KEY is missing! Check your .env file.")
 
 # ✅ Initialize OpenAI client
 openai_client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 app = FastAPI()
 
-# ✅ Enable CORS for frontend communication
+# ✅ Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://localhost:3001"],
@@ -55,13 +58,27 @@ async def analyze_resume(file: UploadFile = File(...), job_desc: str = Form(...)
 
     text = extract_text(file.file, file.content_type)
 
-    prompt = f"Compare this resume: {text} with this job description: {job_desc}. Score it from 0-100 and provide feedback."
+    prompt = f"""
+    Compare this resume with the job description. Provide:
+    1. A score from 0-100.
+    2. Strengths of the resume.
+    3. Weaknesses and areas for improvement.
+
+    Resume: {text}
+    Job Description: {job_desc}
+    """
 
     try:
         response = openai_client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}]
         )
-        return {"score": response.choices[0].message.content}
+        analysis_text = response.choices[0].message.content.strip().split("\n")
+
+        return {
+            "score": analysis_text[0],  # Score
+            "strengths": analysis_text[1],  # Strengths
+            "weaknesses": analysis_text[2]  # Weaknesses
+        }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"AI processing failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error processing resume: {str(e)}")
