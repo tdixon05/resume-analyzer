@@ -10,9 +10,12 @@ from dotenv import load_dotenv
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+# ✅ Initialize OpenAI client
+openai_client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
 app = FastAPI()
 
-# ✅ Enable CORS
+# ✅ Enable CORS for frontend communication
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://localhost:3001"],
@@ -55,11 +58,10 @@ async def analyze_resume(file: UploadFile = File(...), job_desc: str = Form(...)
     prompt = f"Compare this resume: {text} with this job description: {job_desc}. Score it from 0-100 and provide feedback."
 
     try:
-        response = openai.ChatCompletion.create(
+        response = openai_client.chat.completions.create(
             model="gpt-4",
-            messages=[{"role": "user", "content": prompt}],
-            api_key=OPENAI_API_KEY
+            messages=[{"role": "user", "content": prompt}]
         )
-        return {"score": response["choices"][0]["message"]["content"]}
+        return {"score": response.choices[0].message.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI processing failed: {str(e)}")
