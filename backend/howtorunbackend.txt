@@ -1,0 +1,21 @@
+This guide provides step-by-step instructions to start both the **backend (FastAPI)** and **frontend (React)** in your local environment.
+---
+## 🖥 How to Start the Backend (FastAPI)
+1. Navigate to the Backend Folder:
+   ```
+   cd backend
+   ```
+2. Activate the Virtual Environment:
+   - For macOS/Linux:
+     ```
+     source venv/bin/activate
+     ```
+   - For Windows:
+     ```
+     venv\Scripts\activate
+     ```
+3. Start the Backend Server:
+   ```
+   uvicorn main:app --reload
+   ```
+🚀 The backend will now be running at **http://127.0.0.1:8000**.

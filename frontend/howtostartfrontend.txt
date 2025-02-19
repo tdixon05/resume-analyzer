@@ -1,0 +1,11 @@
+## 🎨 How to Start the Frontend (React)
+
+1. Navigate to the Frontend Folder:
+   ```
+   cd frontend
+   ```
+2. Start the React App:
+   ```
+   npm start
+   ```
+🚀 The frontend will now be running at **http://localhost:3000/**.

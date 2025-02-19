@@ -59,10 +59,12 @@ async def analyze_resume(file: UploadFile = File(...), job_desc: str = Form(...)
     text = extract_text(file.file, file.content_type)
 
     prompt = f"""
-    Compare this resume with the job description. Provide:
+    Analyze this resume against the job description. Provide:
     1. A score from 0-100.
     2. Strengths of the resume.
     3. Weaknesses and areas for improvement.
+    4. List of missing skills.
+    5. Suggested improvements to make the resume stronger.
 
     Resume: {text}
     Job Description: {job_desc}
@@ -76,9 +78,11 @@ async def analyze_resume(file: UploadFile = File(...), job_desc: str = Form(...)
         analysis_text = response.choices[0].message.content.strip().split("\n")
 
         return {
-            "score": analysis_text[0],  # Score
-            "strengths": analysis_text[1],  # Strengths
-            "weaknesses": analysis_text[2]  # Weaknesses
+            "score": analysis_text[0],  
+            "strengths": analysis_text[1],  
+            "weaknesses": analysis_text[2],
+            "missing_skills": analysis_text[3],
+            "improvements": analysis_text[4]    
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing resume: {str(e)}")

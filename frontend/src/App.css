@@ -102,3 +102,23 @@ body {
     width: 95%;
   }
 }
+
+/* Progress bar for score */
+.score-bar-container {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 8px;
+  margin-top: 10px;
+  height: 10px;
+}
+
+.score-bar {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.5s ease-in-out;
+}
+
+.high-score { background: #4caf50; } /* Green for good scores */
+.medium-score { background: #ffc107; } /* Yellow for average scores */
+.low-score { background: #f44336; } /* Red for low scores */
+
